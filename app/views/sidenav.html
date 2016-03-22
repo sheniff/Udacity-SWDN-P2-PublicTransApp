@@ -1,0 +1,18 @@
+<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+  <md-list flex ng-controller="LinesCtrl as lc">
+
+    <md-subheader class="md-no-sticky">{{ lc.lines.length }} lines available</md-subheader>
+
+    <md-list-item
+      ng-click="lc.selectLine(line)"
+      class="md-3-line"
+      ng-repeat="line in lc.lines"
+      ng-class="{'selected' : line === lc.selected }">
+      <div class="md-list-item-text" layout="column">
+        <h3>{{ line.name }}</h3>
+        <p>{{ line.inbound }}</p>
+        <p>{{ line.outbound }}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-sidenav>
