@@ -72,5 +72,18 @@
         <script src="scripts/services/lines.js"></script>
         <script src="scripts/directives/times.js"></script>
         <!-- endbuild -->
+
+    <script>
+      // service worker register
+      if(navigator.serviceWorker) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function() {
+            console.log('[SW] working!');
+          })
+          .catch(function() {
+            console.log('[SW] failed loading...');
+          });
+      }
+    </script>
 </body>
 </html>

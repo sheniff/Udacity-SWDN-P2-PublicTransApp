@@ -25,7 +25,6 @@ angular.module('publicTransAppApp')
           ctrl.loading = false;
         });
     }
-    // make interval request for real-time traffic
 
     // if app is offline, notify user (toast) and show latest available info
 

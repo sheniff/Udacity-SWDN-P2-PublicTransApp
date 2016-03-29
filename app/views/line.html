@@ -23,7 +23,7 @@
         <md-list-item class="md-2-line" ng-repeat="stop in line.routes.outbound.stops">
           <div class="md-list-item-text" layout="column">
             <h3>{{ stop.name }}</h3>
-            <p>(Times pending...)</p>
+            <p><times stop="{{stop.code}}" line="{{line.routes.code}}" direction="{{line.routes.outbound.code}}"></times></p>
           </div>
         </md-list-item>
       </md-list>
