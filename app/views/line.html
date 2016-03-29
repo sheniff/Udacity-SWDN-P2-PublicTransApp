@@ -1,6 +1,34 @@
 <div id="routeInfo" ng-show="line.routeId">
-  <h1>Route {{ line.routeId }}</h1>
-  <p>ToDo: Show all the stops for this route</p>
+  <md-progress-linear ng-show="line.loading" md-mode="indeterminate"></md-progress-linear>
+  <md-tabs>
+    <md-tab label="Route {{ line.routeId }}" ng-disabled="true">
+      <md-content class="md-padding"></md-content>
+    </md-tab>
+
+    <md-tab label="Inbound">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">{{ line.routes.inbound.name }}</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="stop in line.routes.inbound.stops">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ stop.name }}</h3>
+            <p><times stop="{{stop.code}}" line="{{line.routes.code}}" direction="{{line.routes.inbound.code}}"></times></p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-tab>
+
+    <md-tab label="Outbound">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">{{ line.routes.outbound.name }}</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="stop in line.routes.outbound.stops">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ stop.name }}</h3>
+            <p>(Times pending...)</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-tab>
+  </md-tabs>
 </div>
 
 <div id="welcome" ng-hide="line.routeId">
