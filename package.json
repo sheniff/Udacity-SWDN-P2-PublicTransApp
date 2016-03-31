@@ -40,5 +40,8 @@
   },
   "scripts": {
     "test": "karma start test/karma.conf.js"
+  },
+  "dependencies": {
+    "idb": "^1.1.0"
   }
 }
