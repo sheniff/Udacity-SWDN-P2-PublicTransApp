@@ -1,3 +1,48 @@
+var staticCacheName = 'public-trans-app-v1';
+
+self.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open(staticCacheName).then(function(cache) {
+      return cache.addAll([
+        '/',
+        'images/yeoman.png',
+        // 'scripts/*',
+        // 'bower_components/*',
+        // 'views/*'
+      ]);
+    }).then(function() {
+      console.log('[sw] static files cached!');
+    })
+  );
+});
+
+self.addEventListener('active', function(event) {
+  event.waitUntil(
+    cache.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.filter(function(cacheName) {
+          return cacheName.startsWith('public-trans-app') &&
+                  cacheName !== staticCacheName;
+        }).map(function(cacheName) {
+          return cache.delete(cacheName);
+        })
+      );
+    }).then(function() {
+      console.log('[sw] All the old caches has been deleted');
+    })
+  );
+});
+
 self.addEventListener('fetch', function(event) {
-  console.log(event.request);
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+self.addEventListener('message', function(event) {
+  if (event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });

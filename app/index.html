@@ -22,6 +22,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <swupdater></swupdater>
 
     <md-toolbar layout="row">
       <md-button class="menu" hide-gt-sm ng-click="main.toggleList()" aria-label="Show Lines List">
@@ -71,18 +72,23 @@
         <script src="scripts/controllers/line.js"></script>
         <script src="scripts/services/lines.js"></script>
         <script src="scripts/directives/times.js"></script>
+        <script src="scripts/directives/swupdater.js"></script>
         <!-- endbuild -->
 
     <script>
       // service worker register
       if(navigator.serviceWorker) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(function() {
-            console.log('[SW] working!');
-          })
-          .catch(function() {
-            console.log('[SW] failed loading...');
+        navigator.serviceWorker.register('/sw.js').then(function(reg) {
+          console.log('[SW] working!');
+
+          // check out controller updates to refresh the page
+          navigator.serviceWorker.addEventListener('controllerchange', function() {
+            window.location.reload();
           });
+
+        }).catch(function() {
+          console.log('[SW] failed loading...');
+        });
       }
     </script>
 </body>
