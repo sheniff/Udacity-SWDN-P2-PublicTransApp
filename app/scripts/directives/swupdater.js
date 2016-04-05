@@ -7,19 +7,16 @@
  * # swupdater
  */
 angular.module('publicTransAppApp')
-  .directive('swupdater', function ($mdToast) {
+  .directive('swupdater', function ($mdToast, $window) {
     return {
       restrict: 'E',
       link: function postLink() {
 
         function init() {
-          if(navigator.serviceWorker) {
-            navigator.serviceWorker.register('/sw.js').then(function(reg) {
-              console.log('[SWupdater] working!');
+          if(navigator.serviceWorker && navigator.serviceWorker.controller) {
 
-              if(!navigator.serviceWorker.controller) {
-                return;
-              }
+            navigator.serviceWorker.getRegistration().then(function(reg) {
+              console.log('[SWupdater] working!');
 
               if(reg.waiting) {
                 _updateReady(reg.waiting);
@@ -33,6 +30,11 @@ angular.module('publicTransAppApp')
 
               reg.addEventListener('updatefound', function() {
                 _trackInstalling(reg.installing);
+              });
+
+              // check out controller updates to refresh the page
+              navigator.serviceWorker.addEventListener('controllerchange', function() {
+                $window.location.reload();
               });
 
             }).catch(function() {

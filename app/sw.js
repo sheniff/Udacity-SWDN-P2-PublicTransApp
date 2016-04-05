@@ -1,4 +1,4 @@
-var staticCacheName = 'public-trans-app-v1';
+var staticCacheName = 'public-trans-app-v6';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -6,9 +6,12 @@ self.addEventListener('install', function(event) {
       return cache.addAll([
         '/',
         'images/yeoman.png',
-        // 'scripts/*',
-        // 'bower_components/*',
-        // 'views/*'
+        'images/svg/menu.svg',
+        'scripts/vendor.js',
+        'scripts/scripts.js',
+        'styles/vendor.css',
+        'styles/main.css',
+        'http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
       ]);
     }).then(function() {
       console.log('[sw] static files cached!');
@@ -16,15 +19,15 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('active', function(event) {
+self.addEventListener('activate', function(event) {
   event.waitUntil(
-    cache.keys().then(function(cacheNames) {
+    caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.filter(function(cacheName) {
           return cacheName.startsWith('public-trans-app') &&
                   cacheName !== staticCacheName;
         }).map(function(cacheName) {
-          return cache.delete(cacheName);
+          return caches.delete(cacheName);
         })
       );
     }).then(function() {

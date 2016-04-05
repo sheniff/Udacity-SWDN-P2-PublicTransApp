@@ -416,6 +416,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '*.html',
+            'sw.js',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
@@ -501,7 +502,7 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
-    'filerev',
+    // 'filerev', // Temporary disabled to facilitate use of service worker (to be restored)
     'usemin',
     'htmlmin'
   ]);

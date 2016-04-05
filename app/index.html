@@ -5,14 +5,14 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
+    <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic">
-    <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
@@ -66,28 +66,20 @@
     <script src="node_modules/idb/lib/idb.js"></script>
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/lines.js"></script>
-        <script src="scripts/controllers/line.js"></script>
-        <script src="scripts/services/lines.js"></script>
-        <script src="scripts/directives/times.js"></script>
-        <script src="scripts/directives/swupdater.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/lines.js"></script>
+    <script src="scripts/controllers/line.js"></script>
+    <script src="scripts/services/lines.js"></script>
+    <script src="scripts/directives/times.js"></script>
+    <script src="scripts/directives/swupdater.js"></script>
+    <!-- endbuild -->
 
     <script>
       // service worker register
       if(navigator.serviceWorker) {
-        navigator.serviceWorker.register('/sw.js').then(function(reg) {
-          console.log('[SW] working!');
-
-          // check out controller updates to refresh the page
-          navigator.serviceWorker.addEventListener('controllerchange', function() {
-            window.location.reload();
-          });
-
-        }).catch(function() {
+        navigator.serviceWorker.register('/sw.js').catch(function() {
           console.log('[SW] failed loading...');
         });
       }
