@@ -8,8 +8,20 @@
  * Service in the publicTransAppApp.
  */
 angular.module('publicTransAppApp')
-  .service('lines', function ($http, SFMUNI_TOKEN, BASE_API) {
+  .service('lines', function ($http, SFMUNI_TOKEN, BASE_API, idb) {
     var agencyName = 'SF-MUNI';
+
+    // *******
+    // Lines
+    // *******
+
+    function getLines() {
+      return fetchLines()
+        .then(getText)
+        .then(parseXML)
+        .then(parseLinesInfo)
+        .then(idb.cacheLines);
+    }
 
     function fetchLines() {
       return $http.get(BASE_API + '/GetRoutesForAgency.aspx', {
@@ -40,12 +52,18 @@ angular.module('publicTransAppApp')
 
         dir = route.querySelector('[Code=Inbound]');
         if (dir) {
-          r.inbound = dir.getAttribute('Name');
+          r.inbound = {
+            code: dir.getAttribute('Code'),
+            name: dir.getAttribute('Name')
+          };
         }
 
         dir = route.querySelector('[Code=Outbound]');
         if (dir) {
-          r.outbound = dir.getAttribute('Name');
+          r.outbound = {
+            code: dir.getAttribute('Code'),
+            name: dir.getAttribute('Name')
+          };
         }
 
         return r;
@@ -54,7 +72,19 @@ angular.module('publicTransAppApp')
       return Promise.resolve(l);
     }
 
-    function fetchRoute(lineId) {
+    // *******
+    // Line
+    // *******
+
+    function getLine(lineId) {
+      return fetchLine(lineId)
+        .then(getText)
+        .then(parseXML)
+        .then(parseLineInfo)
+        .then(idb.cacheLine);
+    }
+
+    function fetchLine(lineId) {
       return $http.get(BASE_API + '/GetStopsForRoutes.aspx', {
         params: {
           token: SFMUNI_TOKEN,
@@ -63,7 +93,7 @@ angular.module('publicTransAppApp')
       });
     }
 
-    function parseRouteInfo(xml) {
+    function parseLineInfo(xml) {
       var routeInfo = xml.querySelector('Route');
       var inboundInfo = xml.querySelector('RouteDirection[Code="Inbound"]');
       var outboundInfo = xml.querySelector('RouteDirection[Code="Outbound"]');
@@ -95,6 +125,18 @@ angular.module('publicTransAppApp')
       return Promise.resolve(r);
     }
 
+    // ************
+    // Line times
+    // ************
+
+    function getStop(stopId, lineId, direction) {
+      return fetchStop(stopId)
+        .then(getText)
+        .then(parseXML)
+        .then(getTimesForLine(lineId, direction))
+        .then(idb.cacheStop(stopId, lineId, direction));
+    }
+
     function fetchStop(stopId) {
       return $http.get(BASE_API + '/GetNextDeparturesByStopCode.aspx', {
         params: {
@@ -116,24 +158,26 @@ angular.module('publicTransAppApp')
 
     return {
       getAll: function() {
-        return fetchLines()
-          .then(getText)
-          .then(parseXML)
-          .then(parseLinesInfo);
+        return idb.getLines()
+          .catch(getLines);
       },
 
-      getRoute: function(lineId) {
-        return fetchRoute(lineId)
-          .then(getText)
-          .then(parseXML)
-          .then(parseRouteInfo);
+      get: function(lineId) {
+        return idb.getLine(lineId)
+          .catch(function() {
+            return getLine(lineId);
+          });
       },
 
-      getNextDepartures: function(stopId, lineId, direction) {
-        return fetchStop(stopId)
-          .then(getText)
-          .then(parseXML)
-          .then(getTimesForLine(lineId, direction));
+      getNextDepartures: function(stopId, lineId, direction, bypassCache) {
+        if (bypassCache) {
+          return getStop(stopId, lineId, direction);
+        }
+
+        return idb.getStop(stopId, lineId, direction)
+          .catch(function() {
+            return getStop(stopId, lineId, direction);
+          });
       }
     };
   });

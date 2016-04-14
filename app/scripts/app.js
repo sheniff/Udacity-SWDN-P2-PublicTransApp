@@ -21,7 +21,7 @@ angular
   ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/:routeId?', {
+      .when('/:lineId?', {
         templateUrl: 'views/line.html',
         controller: 'LineCtrl',
         controllerAs: 'line'

@@ -1,7 +1,7 @@
-<div id="routeInfo" ng-show="line.routeId">
+<div id="routeInfo" ng-show="line.lineId">
   <md-progress-linear ng-show="line.loading" md-mode="indeterminate"></md-progress-linear>
   <md-tabs>
-    <md-tab label="Route {{ line.routeId }}" ng-disabled="true">
+    <md-tab label="Route {{ line.lineId }}" ng-disabled="true">
       <md-content class="md-padding"></md-content>
     </md-tab>
 
@@ -31,7 +31,7 @@
   </md-tabs>
 </div>
 
-<div id="welcome" ng-hide="line.routeId">
+<div id="welcome" ng-hide="line.lineId">
   <div class="jumbotron">
     <h1>'Allo, 'Allo!</h1>
     <p class="lead">

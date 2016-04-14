@@ -8,7 +8,7 @@
  * Controller of the publicTransAppApp
  */
 angular.module('publicTransAppApp')
-  .controller('LinesCtrl', function (lines, $mdSidenav, $location) {
+  .controller('LinesCtrl', function (lines, $mdSidenav, $location, $q) {
 
     var ctrl = this;
 
@@ -19,7 +19,7 @@ angular.module('publicTransAppApp')
     };
 
     // load list of lines
-    lines.getAll()
+    $q.when(lines.getAll())
       .then(function(lines) {
         ctrl.lines = lines;
       });

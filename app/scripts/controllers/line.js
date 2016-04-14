@@ -8,16 +8,16 @@
  * Controller of the publicTransAppApp
  */
 angular.module('publicTransAppApp')
-  .controller('LineCtrl', function ($routeParams, lines) {
+  .controller('LineCtrl', function ($routeParams, $q, lines) {
     var ctrl = this;
 
-    ctrl.routeId = $routeParams.routeId;
+    ctrl.lineId = $routeParams.lineId;
 
-    // fetch line info if routeId is given
-    if (angular.isDefined(ctrl.routeId)) {
+    // fetch line info if lineId is given
+    if (angular.isDefined(ctrl.lineId)) {
       ctrl.loading = true;
 
-      lines.getRoute(ctrl.routeId)
+      $q.when(lines.get(ctrl.lineId))
         .then(function(routes) {
           ctrl.routes = routes;
         })
