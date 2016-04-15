@@ -4,14 +4,14 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
-        '/',
+        '/Udacity-SWDN-P2-PublicTransApp/',
         'images/yeoman.png',
         'images/svg/menu.svg',
         'scripts/vendor.js',
         'scripts/scripts.js',
         'styles/vendor.css',
         'styles/main.css',
-        'http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
+        'https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
       ]);
     }).then(function() {
       console.log('[sw] static files cached!');

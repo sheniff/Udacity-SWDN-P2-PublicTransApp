@@ -464,6 +464,13 @@ module.exports = function (grunt) {
         src: 'sw.js',
         dest: 'sw.js'
       }
+    },
+
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: ['**']
     }
   });
 
@@ -541,6 +548,11 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin',
     'swrev'
+  ]);
+
+  grunt.registerTask('publish', [
+    'build',
+    'gh-pages'
   ]);
 
   grunt.registerTask('default', [
