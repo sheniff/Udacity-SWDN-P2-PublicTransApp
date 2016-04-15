@@ -488,11 +488,13 @@ module.exports = function (grunt) {
       var file = grunt.file.read(src);
       var revs = grunt.filerev.summary;
 
-      for (var orig in revs) if (revs.hasOwnProperty(orig)) {
-        file = file.replace(
-          orig.replace(filePair.cwd + '/', ''),
-          revs[orig].replace(filePair.cwd + '/', '')
-        );
+      for (var orig in revs) {
+        if (revs.hasOwnProperty(orig)) {
+          file = file.replace(
+            orig.replace(filePair.cwd + '/', ''),
+            revs[orig].replace(filePair.cwd + '/', '')
+          );
+        }
       }
 
       // update cache version to enforce refresh
