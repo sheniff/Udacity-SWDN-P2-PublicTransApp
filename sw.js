@@ -1,4 +1,4 @@
-var staticCacheName = 'public-trans-app-v278311683';
+var staticCacheName = 'public-trans-app-v613589785';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -11,7 +11,7 @@ self.addEventListener('install', function(event) {
         'scripts/scripts.6fd55fb3.js',
         'styles/vendor.2b6cccfc.css',
         'styles/main.35a6ce88.css',
-        'http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
+        'https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
       ]);
     }).then(function() {
       console.log('[sw] static files cached!');
