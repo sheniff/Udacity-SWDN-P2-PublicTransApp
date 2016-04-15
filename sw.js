@@ -1,4 +1,4 @@
-var staticCacheName = 'public-trans-app-v234348255';
+var staticCacheName = 'public-trans-app-v368859295';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -8,7 +8,7 @@ self.addEventListener('install', function(event) {
         'images/yeoman.8cb970fb.png',
         'images/svg/menu.b8871cf8.svg',
         'scripts/vendor.ae7419b1.js',
-        'scripts/scripts.0f97a58c.js',
+        'scripts/scripts.d52d892b.js',
         'styles/vendor.2b6cccfc.css',
         'styles/main.35a6ce88.css',
         'https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
