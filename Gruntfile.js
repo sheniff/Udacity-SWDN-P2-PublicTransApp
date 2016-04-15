@@ -456,9 +456,44 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    swrev: {
+      dist: {
+        cwd: '<%= yeoman.dist %>',
+        src: 'sw.js',
+        dest: 'sw.js'
+      }
     }
   });
 
+  grunt.registerMultiTask('swrev', 'Includes file revision in service worker cache.', function() {
+    if (!grunt.filerev || !grunt.filerev.summary) {
+      grunt.log.error('No filerev task was run before swrev so no summary of revisioned files was found.');
+      return false;
+    }
+
+    var path = require('path');
+
+    this.files.forEach(function(filePair) {
+      var src = path.join(filePair.cwd, filePair.src[0]);
+      var dest = path.join(filePair.cwd, filePair.dest);
+      var file = grunt.file.read(src);
+      var revs = grunt.filerev.summary;
+
+      for (var orig in revs) if (revs.hasOwnProperty(orig)) {
+        file = file.replace(
+          orig.replace(filePair.cwd + '/', ''),
+          revs[orig].replace(filePair.cwd + '/', '')
+        );
+      }
+
+      // update cache version to enforce refresh
+      file = file.replace(/'public-trans-app-v[^']*/, '\'public-trans-app-v' + Math.floor(Math.random() * 1000000000));
+
+      grunt.file.write(dest, file);
+    });
+  });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -502,9 +537,10 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
-    // 'filerev', // Temporary disabled to facilitate use of service worker (to be restored)
+    'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'swrev'
   ]);
 
   grunt.registerTask('default', [
