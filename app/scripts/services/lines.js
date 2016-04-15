@@ -17,7 +17,7 @@ angular.module('publicTransAppApp')
     //   return $http.get(finalUrl, options);
     // };
 
-    var get2 = function(url, options) {
+    var get = function(url, options) {
       return $http.get(BASE_API + url, options);
     };
 
@@ -34,7 +34,7 @@ angular.module('publicTransAppApp')
     }
 
     function fetchLines() {
-      return get2('/GetRoutesForAgency.aspx', {
+      return get('/GetRoutesForAgency.aspx', {
         params: {
           token: SFMUNI_TOKEN,
           agencyName: agencyName
@@ -95,7 +95,7 @@ angular.module('publicTransAppApp')
     }
 
     function fetchLine(lineId) {
-      return get2('/GetStopsForRoutes.aspx', {
+      return get('/GetStopsForRoutes.aspx', {
         params: {
           token: SFMUNI_TOKEN,
           routeIDF: agencyName + '~' + lineId + '~Inbound|' + agencyName + '~' + lineId + '~Outbound'
@@ -148,7 +148,7 @@ angular.module('publicTransAppApp')
     }
 
     function fetchStop(stopId) {
-      return get2('/GetNextDeparturesByStopCode.aspx', {
+      return get('/GetNextDeparturesByStopCode.aspx', {
         params: {
           token: SFMUNI_TOKEN,
           stopcode: stopId
