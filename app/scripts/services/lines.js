@@ -8,8 +8,14 @@
  * Service in the publicTransAppApp.
  */
 angular.module('publicTransAppApp')
-  .service('lines', function ($http, SFMUNI_TOKEN, BASE_API, idb) {
+  .service('lines', function ($http, $httpParamSerializer, SFMUNI_TOKEN, BASE_API, idb) {
     var agencyName = 'SF-MUNI';
+
+    var get = function(url, options) {
+      var finalUrl = BASE_API + encodeURIComponent(url + '?' + $httpParamSerializer(options.params));
+      delete options.params;
+      return $http.get(finalUrl, options);
+    };
 
     // *******
     // Lines
@@ -24,7 +30,7 @@ angular.module('publicTransAppApp')
     }
 
     function fetchLines() {
-      return $http.get(BASE_API + '/GetRoutesForAgency.aspx', {
+      return get('/GetRoutesForAgency.aspx', {
         params: {
           token: SFMUNI_TOKEN,
           agencyName: agencyName
@@ -85,7 +91,7 @@ angular.module('publicTransAppApp')
     }
 
     function fetchLine(lineId) {
-      return $http.get(BASE_API + '/GetStopsForRoutes.aspx', {
+      return get('/GetStopsForRoutes.aspx', {
         params: {
           token: SFMUNI_TOKEN,
           routeIDF: agencyName + '~' + lineId + '~Inbound|' + agencyName + '~' + lineId + '~Outbound'
@@ -138,7 +144,7 @@ angular.module('publicTransAppApp')
     }
 
     function fetchStop(stopId) {
-      return $http.get(BASE_API + '/GetNextDeparturesByStopCode.aspx', {
+      return get('/GetNextDeparturesByStopCode.aspx', {
         params: {
           token: SFMUNI_TOKEN,
           stopcode: stopId
