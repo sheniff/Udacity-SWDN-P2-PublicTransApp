@@ -11,11 +11,11 @@ angular.module('publicTransAppApp')
   .service('lines', function ($http, $httpParamSerializer, SFMUNI_TOKEN, BASE_API, idb) {
     var agencyName = 'SF-MUNI';
 
-    var get = function(url, options) {
-      var finalUrl = BASE_API + encodeURIComponent(url + '?' + $httpParamSerializer(options.params));
-      delete options.params;
-      return $http.get(finalUrl, options);
-    };
+    // var get = function(url, options) {
+    //   var finalUrl = BASE_API + encodeURIComponent(url + '?' + $httpParamSerializer(options.params));
+    //   delete options.params;
+    //   return $http.get(finalUrl, options);
+    // };
 
     var get2 = function(url, options) {
       return $http.get(BASE_API + url, options);
