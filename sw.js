@@ -1,10 +1,10 @@
-var staticCacheName = 'public-trans-app-v613589785';
+var staticCacheName = 'public-trans-app-v74164708';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
-        '/',
+        '',
         'images/yeoman.8cb970fb.png',
         'images/svg/menu.b8871cf8.svg',
         'scripts/vendor.ae7419b1.js',
