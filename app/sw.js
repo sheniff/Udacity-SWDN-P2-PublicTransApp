@@ -4,7 +4,6 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
-        '/',
         '/Udacity-SWDN-P2-PublicTransApp/',
         'images/muni.png',
         'images/svg/menu.svg',
