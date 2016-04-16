@@ -1,12 +1,14 @@
-<!doctype html> <html> <head> <meta charset="utf-8"> <title></title> <meta name="description" content=""> <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.2b6cccfc.css"> <link rel="stylesheet" href="styles/main.35a6ce88.css"> </head> <body ng-app="publicTransAppApp" layout="column" ng-controller="MainCtrl as main"> <!--[if lte IE 8]>
+<!doctype html> <html> <head> <meta charset="utf-8"> <title></title> <meta name="description" content=""> <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"> <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.2b6cccfc.css"> <link rel="stylesheet" href="styles/main.8f54e2f6.css"> </head> <body ng-app="publicTransAppApp" layout="column" ng-controller="MainCtrl as main"> <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]--> <!-- Add your site or application content here --> <swupdater></swupdater> <md-toolbar layout="row"> <md-button class="menu" hide-gt-sm ng-click="main.toggleList()" aria-label="Show Lines List"> <md-icon md-svg-icon="menu"></md-icon> </md-button> <h1>Udacity - Public Transportation App</h1> </md-toolbar> <div flex layout="row"> <div ng-include="'views/sidenav.html'"></div> <md-content flex id="content" ng-view=""></md-content> </div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+    <![endif]--> <!-- Add your site or application content here --> <swupdater></swupdater> <md-toolbar layout="row"> <md-button class="menu" hide-gt-sm ng-click="main.toggleList()" aria-label="Show Lines List"> <md-icon md-svg-icon="menu"></md-icon> </md-button> <h1>Udacity - Muni Watcher</h1> </md-toolbar> <div flex layout="row"> <div ng-include="'views/sidenav.html'"></div> <md-content flex id="content" ng-view=""></md-content> </div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <!-- <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');</script> <script src="scripts/vendor.ae7419b1.js"></script> <script src="scripts/scripts.53cbd819.js"></script> <script>// service worker register
+       ga('send', 'pageview');
+    </script> --> <script src="scripts/vendor.ae7419b1.js"></script> <script src="scripts/scripts.84b4477f.js"></script> <script>// service worker register
       if(navigator.serviceWorker) {
         navigator.serviceWorker.register('sw.js').catch(function() {
           console.log('[SW] failed loading...', arguments);

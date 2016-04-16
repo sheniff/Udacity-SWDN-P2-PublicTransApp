@@ -1,16 +1,17 @@
-var staticCacheName = 'public-trans-app-v904607473';
+var staticCacheName = 'public-trans-app-v153192500';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
+        '/',
         '/Udacity-SWDN-P2-PublicTransApp/',
-        'images/yeoman.8cb970fb.png',
+        'images/muni.08a5988a.png',
         'images/svg/menu.b8871cf8.svg',
         'scripts/vendor.ae7419b1.js',
-        'scripts/scripts.53cbd819.js',
+        'scripts/scripts.84b4477f.js',
         'styles/vendor.2b6cccfc.css',
-        'styles/main.35a6ce88.css',
+        'styles/main.8f54e2f6.css',
         'https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'
       ]);
     }).then(function() {
