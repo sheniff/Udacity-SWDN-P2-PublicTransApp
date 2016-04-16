@@ -93,6 +93,10 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
+              connect().use(
+                '/Udacity-SWDN-P2-PublicTransApp',
+                connect.static(appConfig.app)
+              ),
               connect.static(appConfig.app)
             ];
           }
@@ -117,7 +121,16 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= yeoman.dist %>'
+          base: '<%= yeoman.dist %>',
+          middleware: function (connect) {
+            return [
+              connect().use(
+                '/Udacity-SWDN-P2-PublicTransApp',
+                connect.static(appConfig.dist)
+              ),
+              connect.static(appConfig.dist)
+            ];
+          }
         }
       }
     },
