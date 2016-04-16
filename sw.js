@@ -1,10 +1,9 @@
-var staticCacheName = 'public-trans-app-v153192500';
+var staticCacheName = 'public-trans-app-v929617578';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
-        '/',
         '/Udacity-SWDN-P2-PublicTransApp/',
         'images/muni.08a5988a.png',
         'images/svg/menu.b8871cf8.svg',
