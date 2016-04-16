@@ -8,7 +8,7 @@
  * Controller of the publicTransAppApp
  */
 angular.module('publicTransAppApp')
-  .controller('LinesCtrl', function (lines, $mdSidenav, $location, $q) {
+  .controller('LinesCtrl', function (lines, $mdSidenav, $location, $q, toaster) {
 
     var ctrl = this;
 
@@ -18,10 +18,19 @@ angular.module('publicTransAppApp')
       $mdSidenav('left').close();
     };
 
-    // load list of lines
-    $q.when(lines.getAll())
-      .then(function(lines) {
-        ctrl.lines = lines;
-      });
+    function init() {
+      // load list of lines
+      toaster.showLoading();
 
+      $q.when(lines.getAll())
+        .then(function(lines) {
+          ctrl.lines = lines;
+          toaster.hideLoading();
+        })
+        .catch(function() {
+          toaster.showRetry('Could not get data...', init);
+        });
+    }
+
+    init();
   });

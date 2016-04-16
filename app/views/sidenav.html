@@ -3,6 +3,12 @@
 
     <md-subheader class="md-no-sticky">{{ lc.lines.length }} lines available</md-subheader>
 
+    <md-list-item ng-hide="lc.lines.length">
+      <div class="md-list-item-text" layout="column">
+        Loading...
+      </div>
+    </md-list-item>
+
     <md-list-item
       ng-click="lc.selectLine(line)"
       class="md-3-line"
